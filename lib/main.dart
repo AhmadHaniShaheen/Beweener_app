@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tt9_betweener_challenge/views/home_view.dart';
+import 'package:tt9_betweener_challenge/views/loading_view.dart';
 import 'package:tt9_betweener_challenge/views/login_view.dart';
 import 'package:tt9_betweener_challenge/views/main_app_view.dart';
-import 'package:tt9_betweener_challenge/views/onbording_view.dart';
 import 'package:tt9_betweener_challenge/views/profile_view.dart';
 import 'package:tt9_betweener_challenge/views/receive_view.dart';
 import 'package:tt9_betweener_challenge/views/register_view.dart';
@@ -31,10 +31,11 @@ class MyApp extends StatelessWidget {
                 color: kPrimaryColor),
           ),
           scaffoldBackgroundColor: kScaffoldColor),
-      home: const OnBoardingView(),
+      home: const LoadingView(),
       routes: {
-        LoginView.id: (context) => LoginView(),
-        RegisterView.id: (context) => RegisterView(),
+        LoadingView.id: (context) => const LoadingView(),
+        LoginView.id: (context) => const LoginView(),
+        RegisterView.id: (context) => const RegisterView(),
         HomeView.id: (context) => const HomeView(),
         MainAppView.id: (context) => const MainAppView(),
         ProfileView.id: (context) => const ProfileView(),

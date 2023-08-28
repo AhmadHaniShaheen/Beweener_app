@@ -1,7 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tt9_betweener_challenge/assets.dart';
+import 'package:tt9_betweener_challenge/controllers/auth_controller.dart';
+import 'package:tt9_betweener_challenge/models/auth_model.dart';
 import 'package:tt9_betweener_challenge/views/main_app_view.dart';
 import 'package:tt9_betweener_challenge/views/register_view.dart';
 import 'package:tt9_betweener_challenge/views/widgets/custom_text_form_field.dart';
@@ -23,6 +26,32 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  void submetLogin() {
+    if (_formKey.currentState!.validate()) {
+      login({
+        "email": emailController.text,
+        "password": passwordController.text,
+      }).then(
+        (user) async {
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('user', userModelToJson(user));
+
+          if (mounted) {
+            Navigator.pushNamed(context, MainAppView.id);
+          }
+        },
+      ).catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error.toString(),
+            ),
+          ),
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +107,9 @@ class _LoginViewState extends State<LoginView> {
                     height: 24,
                   ),
                   SecondaryButtonWidget(
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.pushNamed(context, MainAppView.id);
-                        }
-                      },
-                      text: 'LOGIN'),
+                    onTap: submetLogin,
+                    text: 'LOGIN',
+                  ),
                   const SizedBox(
                     height: 24,
                   ),

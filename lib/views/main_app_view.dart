@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tt9_betweener_challenge/controllers/link_controller.dart';
 import 'package:tt9_betweener_challenge/views/home_view.dart';
 import 'package:tt9_betweener_challenge/views/profile_view.dart';
 import 'package:tt9_betweener_challenge/views/receive_view.dart';
@@ -21,6 +22,10 @@ class _MainAppViewState extends State<MainAppView> {
     const HomeView(),
     const ProfileView()
   ];
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
